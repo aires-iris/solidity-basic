@@ -9,7 +9,7 @@ import {AggregatorV3Interface} from "@chainlink/contracts/src/v0.8/shared/interf
 
 contract FounMe {
     AggregatorV3Interface internal dataFeed;
-    address public  owner;
+    address public owner;
 
     mapping(address => uint256) public fundersToAmount;
 
@@ -19,19 +19,31 @@ contract FounMe {
     // 筹款总额
     uint256 constant TARGET = 200 * 10 ** 18; // USD;
 
-    constructor() {
+    // 部署时间戳
+    uint256 deploymentTimestamp;
+    // 锁定时间
+    uint256 lockTime;
+
+    constructor(uint256 _lockTime) {
         dataFeed = AggregatorV3Interface(
             0x694AA1769357215DE4FAC081bf1f309aDC325306
         );
         owner = msg.sender;
+        deploymentTimestamp = block.timestamp;
+        lockTime = _lockTime;
     }
 
-    function fund() external payable  {
+    // 筹款函数
+    function fund() external payable {
         require(MIN_VALUE <= convertEthToUsd(msg.value), "Fund more ETH!");
+        require(
+            block.timestamp < deploymentTimestamp + lockTime,
+            "window is closed"
+        );
         fundersToAmount[msg.sender] = msg.value;
-
     }
 
+    // 获取喂价
     function getChainlinkDataFeedLatestAnswer() public view returns (int) {
         // prettier-ignore
         (
@@ -44,20 +56,26 @@ contract FounMe {
         return answer;
     }
 
-    function convertEthToUsd(uint256 ethAmount) internal view returns (uint256) {
+    // 计算ETH转美元金额
+    function convertEthToUsd(
+        uint256 ethAmount
+    ) internal view returns (uint256) {
         uint256 ethPrice = uint256(getChainlinkDataFeedLatestAnswer());
         return (ethAmount * ethPrice) / (10 ** 8);
     }
 
-    function transferOwnership(address newOwner) public  {
-        require(msg.sender == owner,"Only owner can transfer ownership!");
+    // 合约所有权转移
+    function transferOwnership(address newOwner) public onlyOwner {
         owner = newOwner;
     }
 
+    // 合约提款
+    function getFound() external windowClose onlyOwner {
+        require(
+            convertEthToUsd(address(this).balance) >= TARGET,
+            "Target not reached!"
+        );
 
-    function getFound() external  {
-        require(convertEthToUsd(address(this).balance) >= TARGET,"Target not reached!");
-        require(msg.sender == owner,"Only Owner can fund!");
         // 转账 transfer/send/call
         // payable (msg.sender).transfer(address(this).balance);
 
@@ -65,17 +83,39 @@ contract FounMe {
         // require(success,"send error!");
 
         bool success;
-        (success,) = payable(msg.sender).call{value:address(this).balance}("");
-        require(success,"call error!");
- 
+        (success, ) = payable(msg.sender).call{value: address(this).balance}(
+            ""
+        );
+        require(success, "call error!");
     }
 
-    function reFund() external {
-        require(convertEthToUsd(address(this).balance) <= TARGET,"Target is reached!");
-        require(fundersToAmount[msg.sender] != 0,"You have not funded yet!");
+    // 合约退款
+    function reFund() external windowClose {
+        require(
+            convertEthToUsd(address(this).balance) <= TARGET,
+            "Target is reached!"
+        );
+        require(fundersToAmount[msg.sender] != 0, "You have not funded yet!");
         bool success;
-        (success,) = payable(msg.sender).call{value:fundersToAmount[msg.sender]}("");
-        require(success,"refund error!");
+        (success, ) = payable(msg.sender).call{
+            value: fundersToAmount[msg.sender]
+        }("");
+        require(success, "refund error!");
         fundersToAmount[msg.sender] = 0;
+    }
+
+    // 窗口期已关闭
+    modifier windowClose() {
+        require(
+            block.timestamp >= deploymentTimestamp + lockTime,
+            "window is not closed"
+        );
+        _;
+    }
+
+    // 只有合同部署者可以操作
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Only Owner can operate this!");
+        _;
     }
 }
