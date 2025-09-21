@@ -1,0 +1,8 @@
+/**
+ * Minified by jsDelivr using Terser v5.39.0.
+ * Original file: /npm/tes@1.0.0/helloworld.js
+ *
+ * Do NOT use SRI with dynamically generated files! More information: https://www.jsdelivr.com/using-sri-with-dynamic-files
+ */
+var http=require("http");http.createServer((function(e,t){t.writeHead(200,{"Content-Type":"text/plain"}),t.end("Hello World\n")})).listen(8081),console.log("Server running at http://127.0.0.1:8081/");
+//# sourceMappingURL=/sm/21dafdcc6455c35f1018948b414e65e4b96e9c7c63d86fa7314a895d52cc35a0.map

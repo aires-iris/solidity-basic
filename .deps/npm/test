@@ -1,0 +1,8 @@
+/**
+ * Minified by jsDelivr using Terser v5.37.0.
+ * Original file: /npm/test@3.3.0/lib/test.js
+ *
+ * Do NOT use SRI with dynamically generated files! More information: https://www.jsdelivr.com/using-sri-with-dynamic-files
+ */
+"use strict";const{ObjectAssign:ObjectAssign,ObjectDefineProperty:ObjectDefineProperty}=require("#internal/per_context/primordials"),{test:test,describe:describe,it:it,before:before,after:after,beforeEach:beforeEach,afterEach:afterEach}=require("#internal/test_runner/harness"),{run:run}=require("#internal/test_runner/runner");let lazyMock;module.exports=test,ObjectAssign(module.exports,{after:after,afterEach:afterEach,before:before,beforeEach:beforeEach,describe:describe,it:it,run:run,test:test}),ObjectDefineProperty(module.exports,"mock",{__proto__:null,configurable:!0,enumerable:!0,get(){if(void 0===lazyMock){const{MockTracker:e}=require("#internal/test_runner/mock");lazyMock=new e}return lazyMock}});
+//# sourceMappingURL=/sm/63d1c03675f24ae66aaa8e3a4c7415b6d46035b9585d4d1729dd0f8969b968ff.map

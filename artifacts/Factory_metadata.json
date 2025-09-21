@@ -106,20 +106,20 @@
 		"remappings": []
 	},
 	"sources": {
-		"HelloWorldFactory.sol": {
-			"keccak256": "0xd8bbefb6b3d549ca3a1115ab4c0c3de969c550d7d8bca5cf78955980d04d0192",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://16c591e9ae7c60e4640138ae591cf30d6cb2ef990fe2b4764ce3794e1409adbc",
-				"dweb:/ipfs/QmTfNuHhZekaKCeYLBXiofc3r24fxcEWivvANsW6pAQdTH"
-			]
-		},
-		"test.sol": {
+		"HelloWorld.sol": {
 			"keccak256": "0x8b3490fb51763cb9a3f40c907007c789d01812097a448979b35d51253c8d72a9",
 			"license": "MIT",
 			"urls": [
 				"bzz-raw://ac0017b76e7a600047f5c59fb8464259854eb23105665d6144a3157994a84ef2",
 				"dweb:/ipfs/QmQz524iqB6x8nUincPw25GCAttvb3ecqVopK41dazRsL3"
+			]
+		},
+		"HelloWorldFactory.sol": {
+			"keccak256": "0x8bf578498976acf4c9f95447a7dc48aa80b2ff9b41352e0779e9dc3fa30051db",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://80ef0086113018ae7a502eb4217b78e84cc0dcbd7a95bfa0eead2a144754400e",
+				"dweb:/ipfs/QmTtH5jkCYJu7ZWx6dYn4pvcBEPoybEqAQeye82Qpv2iNn"
 			]
 		}
 	},
