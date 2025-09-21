@@ -9,11 +9,16 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
-						"name": "_id",
+						"name": "index",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "id",
 						"type": "uint256"
 					}
 				],
-				"name": "sayHello",
+				"name": "callSayHelloFromFactory",
 				"outputs": [
 					{
 						"internalType": "string",
@@ -27,19 +32,50 @@
 			{
 				"inputs": [
 					{
+						"internalType": "uint256",
+						"name": "index",
+						"type": "uint256"
+					},
+					{
 						"internalType": "string",
-						"name": "newString",
+						"name": "str",
 						"type": "string"
 					},
 					{
+						"internalType": "uint32",
+						"name": "id",
+						"type": "uint32"
+					}
+				],
+				"name": "callSetHelloWorldFromFactory",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "createHelloWorl",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "uint256",
-						"name": "_id",
+						"name": "index",
 						"type": "uint256"
 					}
 				],
-				"name": "setHelloWorld",
-				"outputs": [],
-				"stateMutability": "nonpayable",
+				"name": "getHelloWorldByIndex",
+				"outputs": [
+					{
+						"internalType": "contract HelloWorld",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			}
 		],
@@ -56,7 +92,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"HelloWorld.sol": "HelloWorld"
+			"HelloWorldFactory.sol": "Factory"
 		},
 		"evmVersion": "shanghai",
 		"libraries": {},
@@ -70,7 +106,15 @@
 		"remappings": []
 	},
 	"sources": {
-		"HelloWorld.sol": {
+		"HelloWorldFactory.sol": {
+			"keccak256": "0xd8bbefb6b3d549ca3a1115ab4c0c3de969c550d7d8bca5cf78955980d04d0192",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://16c591e9ae7c60e4640138ae591cf30d6cb2ef990fe2b4764ce3794e1409adbc",
+				"dweb:/ipfs/QmTfNuHhZekaKCeYLBXiofc3r24fxcEWivvANsW6pAQdTH"
+			]
+		},
+		"test.sol": {
 			"keccak256": "0x8b3490fb51763cb9a3f40c907007c789d01812097a448979b35d51253c8d72a9",
 			"license": "MIT",
 			"urls": [

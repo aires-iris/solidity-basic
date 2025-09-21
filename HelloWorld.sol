@@ -14,17 +14,13 @@ contract HelloWorld {
     mapping(uint256 => Info) infoMapping;
 
     function sayHello(uint _id) public view returns (string memory) {
-        // for (uint i = 0; i < infos.length; i++) {
-        //     if(infos[i].id == _id){
-        //         return addInfo(infos[i].phrase);
-        //     }
-        // }
+
         if (infoMapping[_id].addr == address(0x0)) {
             return addInfo(_str_var);
         } else {
             return addInfo(infoMapping[_id].phrase);
         }
-        // infoMapping[_id].phrase;
+
     }
 
     function setHelloWorld(string memory newString, uint256 _id) public {
