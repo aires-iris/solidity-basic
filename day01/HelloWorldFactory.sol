@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
-import { HelloWorld } from "./HelloWorld.sol";
+import { HelloWorld } from "day01/HelloWorld.sol";
 
 contract Factory {
 
