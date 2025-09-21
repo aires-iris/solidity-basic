@@ -40,7 +40,8 @@ contract FounMe {
             block.timestamp < deploymentTimestamp + lockTime,
             "window is closed"
         );
-        fundersToAmount[msg.sender] = msg.value;
+        fundersToAmount[msg.sender] += msg.value;
+  
     }
 
     // 获取喂价
