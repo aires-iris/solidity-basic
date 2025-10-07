@@ -25,6 +25,10 @@ contract FundMe {
 
     uint256 lockTime;
 
+    address erc20Address;
+
+    bool public getFundSuccess = false;
+
 
     constructor(uint256 _lockTime){
          dataFeed = AggregatorV3Interface(0x694AA1769357215DE4FAC081bf1f309aDC325306);
@@ -57,7 +61,7 @@ contract FundMe {
         (bool success, ) = payable(msg.sender).call{value: address(this).balance}(""); 
         require(success,"tx fialed!");
 
-
+        getFundSuccess =true;
 
     }
 
@@ -95,6 +99,19 @@ contract FundMe {
             uint256 ethPrice = uint256(getChainlinkDataFeedLatestAnswer());
             return  ethAmount * ethPrice / (10 ** 8);
     }
+
+    // 设置ERC20合约地址
+    function setErc20Addr(address _erc20Address) public onlyOner {
+        erc20Address = _erc20Address;
+    }
+
+
+    function setFundersAmount(address funder,uint256 amountToUpdate) external {
+        require(msg.sender == erc20Address,"you dont have permission to call this function!");
+        fundersToAmount[funder] = amountToUpdate;
+    }
+
+
     modifier windowClosed(){
         require(block.timestamp >= deploymentTimestamp + lockTime, "window is not closed");
         _;
